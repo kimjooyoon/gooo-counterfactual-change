@@ -14,17 +14,22 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          fetch-tags: true
       - name: Verify annotated tag points to the pushed commit
         run: |
-          test "$(git cat-file -t "$GITHUB_REF_NAME^{tag}")" = tag
-          test "$(git rev-parse "$GITHUB_REF_NAME^{}")" = "$GITHUB_SHA"
+          set -euo pipefail
+          tag_ref="refs/tags/$GITHUB_REF_NAME"
+          git fetch origin "$tag_ref:$tag_ref"
+          tag_object=$(git rev-parse "$tag_ref")
+          test "$(git cat-file -t "$tag_object")" = tag
+          test "$(git rev-parse "$tag_object^{commit}")" = "$GITHUB_SHA"
       - name: Build immutable source archive and checksums
         shell: bash
         run: |
           set -euo pipefail
           version="${GITHUB_REF_NAME#v}"
           archive="gooo-counterfactual-change-${version}.tar.gz"
-          tag_object=$(git rev-parse "$GITHUB_REF_NAME^{tag}")
+          tag_object=$(git rev-parse "refs/tags/$GITHUB_REF_NAME")
           git archive --format=tar.gz --prefix="gooo-counterfactual-change-${version}/" -o "$archive" "$GITHUB_SHA"
           sha256sum "$archive" > SHA256SUMS
           printf '{"schema":"gooo/counterfactual-change/release-manifest/v1","tag":"%s","tag_object":"%s","commit":"%s","immutable":true}\n' "$GITHUB_REF_NAME" "$tag_object" "$GITHUB_SHA" > release-manifest.json
