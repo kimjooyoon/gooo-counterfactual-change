@@ -32,6 +32,7 @@ jobs:
           files=$(gofmt -l $(git ls-files '*.go'))
           if [ -n "$files" ]; then
             printf '%s\n' "$files"
+            gofmt -d $files
             exit 1
           fi
       - name: Verify vet
