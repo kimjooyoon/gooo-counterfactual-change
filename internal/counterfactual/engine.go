@@ -183,7 +183,7 @@ func GenerateCandidate(ir SemanticIR) (CandidatePatch, error) {
 		Target:               ir.Candidate.Target,
 		PatchFormat:          ir.Candidate.PatchFormat,
 		PatchText:            "require exact_claimed_outcome=CLAIMED_SUCCESS\nrequire every_fixed_guardrail=CLOSED\notherwise=REFUTED_or_UNKNOWN_by_evidence",
-		ExecutionBoundary:   "CALLER_OWNED_EPHEMERAL_CI_COPY",
+		ExecutionBoundary:    "CALLER_OWNED_EPHEMERAL_CI_COPY",
 	}
 	digest, err := DigestValue(patch)
 	if err != nil {
@@ -268,39 +268,39 @@ func Evaluate(options EvaluateOptions, compiled SemanticIR) error {
 		resourceRecords = append(resourceRecords, map[string]any{
 			"case_id": evaluation.Scenario.CaseID,
 			"before": map[string]any{
-				"build": evaluation.Scenario.Before.Build,
-				"tests": evaluation.Scenario.Before.Tests,
+				"build":     evaluation.Scenario.Before.Build,
+				"tests":     evaluation.Scenario.Before.Tests,
 				"resources": evaluation.Scenario.Before.Resources,
 			},
 			"after": map[string]any{
-				"build": evaluation.Scenario.After.Build,
-				"tests": evaluation.Scenario.After.Tests,
+				"build":     evaluation.Scenario.After.Build,
+				"tests":     evaluation.Scenario.After.Tests,
 				"resources": evaluation.Scenario.After.Resources,
 			},
 		})
 	}
 
 	provenance := map[string]any{
-		"source_digest":          ir.SourceDigest,
-		"contract_digest":        ir.ContractDigest,
-		"semantic_ir_digest":     ir.IRDigest,
+		"source_digest":           ir.SourceDigest,
+		"contract_digest":         ir.ContractDigest,
+		"semantic_ir_digest":      ir.IRDigest,
 		"baseline_fixture_digest": baselineDigest,
-		"generated_go_digest":    generatedDigest,
-		"evaluator_digest":       evaluatorDigest,
-		"scenario_corpus_digest": corpusDigest,
-		"candidate_patch_digest": patch.PatchDigest,
+		"generated_go_digest":     generatedDigest,
+		"evaluator_digest":        evaluatorDigest,
+		"scenario_corpus_digest":  corpusDigest,
+		"candidate_patch_digest":  patch.PatchDigest,
 	}
 	if err := writeJSON(filepath.Join(options.ArtifactDir, "semantic-ir.json"), ir); err != nil {
 		return err
 	}
 	if err := writeJSON(filepath.Join(options.ArtifactDir, "baseline-binding-receipt.json"), map[string]any{
-		"schema": "gooo/counterfactual-change/baseline-binding-receipt/v1",
-		"baseline_id": baseline.BaselineID,
-		"revision": baseline.Revision,
-		"immutable": baseline.Immutable,
-		"source_file": baseline.SourceFile,
-		"source_digest": baseline.SourceDigest,
-		"fixture_digest": baselineDigest,
+		"schema":                    "gooo/counterfactual-change/baseline-binding-receipt/v1",
+		"baseline_id":               baseline.BaselineID,
+		"revision":                  baseline.Revision,
+		"immutable":                 baseline.Immutable,
+		"source_file":               baseline.SourceFile,
+		"source_digest":             baseline.SourceDigest,
+		"fixture_digest":            baselineDigest,
 		"source_repository_changed": false,
 	}); err != nil {
 		return err
@@ -327,15 +327,15 @@ func Evaluate(options EvaluateOptions, compiled SemanticIR) error {
 		return err
 	}
 	if err := writeJSON(filepath.Join(options.ArtifactDir, "execution-receipt.json"), map[string]any{
-		"schema": "gooo/counterfactual-change/execution-receipt/v1",
-		"execution_mode": options.ExecutionMode,
-		"candidate_execution_location": "CALLER_OWNED_EPHEMERAL_CI_COPY",
-		"source_repository_writes": 0,
-		"local_test_executions": 0,
-		"cross_project_required_gates": 0,
+		"schema":                                 "gooo/counterfactual-change/execution-receipt/v1",
+		"execution_mode":                         options.ExecutionMode,
+		"candidate_execution_location":           "CALLER_OWNED_EPHEMERAL_CI_COPY",
+		"source_repository_writes":               0,
+		"local_test_executions":                  0,
+		"cross_project_required_gates":            0,
 		"candidate_applied_to_source_repository": false,
-		"case_count": CaseCount,
-		"provenance": provenance,
+		"case_count":                             CaseCount,
+		"provenance":                             provenance,
 	}); err != nil {
 		return err
 	}
@@ -343,11 +343,11 @@ func Evaluate(options EvaluateOptions, compiled SemanticIR) error {
 		return err
 	}
 	if err := writeJSON(filepath.Join(options.ArtifactDir, "replay-receipt.json"), map[string]any{
-		"schema": "gooo/counterfactual-change/replay-receipt/v1",
-		"replay_identity": provenance,
+		"schema":                        "gooo/counterfactual-change/replay-receipt/v1",
+		"replay_identity":               provenance,
 		"deterministic_replay_required": true,
-		"second_run_byte_identical": true,
-		"replay_alone_can_close": false,
+		"second_run_byte_identical":     true,
+		"replay_alone_can_close":        false,
 	}); err != nil {
 		return err
 	}
@@ -367,52 +367,52 @@ func Evaluate(options EvaluateOptions, compiled SemanticIR) error {
 		artifactDigests[name] = digest
 	}
 	manifest := map[string]any{
-		"schema": "gooo/counterfactual-change/experiment-manifest/v1",
-		"subject_sha": options.SubjectSHA,
-		"go_version": options.GoVersion,
-		"experiment_id": ir.ExperimentID,
-		"baseline_id": ir.BaselineID,
-		"claim_id": ir.ClaimID,
-		"candidate_id": ir.CandidateID,
+		"schema":         "gooo/counterfactual-change/experiment-manifest/v1",
+		"subject_sha":    options.SubjectSHA,
+		"go_version":     options.GoVersion,
+		"experiment_id":  ir.ExperimentID,
+		"baseline_id":    ir.BaselineID,
+		"claim_id":       ir.ClaimID,
+		"candidate_id":   ir.CandidateID,
 		"execution_mode": options.ExecutionMode,
 		"contracts": map[string]any{
-			"activity_cells": ActivityCount,
-			"activity_mapping": "1:1",
-			"executable_cases": CaseCount,
-			"fixed_guardrails": GuardrailCount,
+			"activity_cells":       ActivityCount,
+			"activity_mapping":     "1:1",
+			"executable_cases":     CaseCount,
+			"fixed_guardrails":     GuardrailCount,
 			"root_readme_excluded": true,
 		},
 		"case_states": map[string]int{
-			StateClosed: countStates(evaluations, StateClosed),
+			StateClosed:  countStates(evaluations, StateClosed),
 			StateUnknown: countStates(evaluations, StateUnknown),
 			StateRefuted: countStates(evaluations, StateRefuted),
 		},
 		"adoption_decisions": map[string]int{
-			"ADOPTABLE": countAdoptions(evaluations, "ADOPTABLE"),
+			"ADOPTABLE":    countAdoptions(evaluations, "ADOPTABLE"),
 			"HOLD_UNKNOWN": countAdoptions(evaluations, "HOLD_UNKNOWN"),
-			"REJECTED": countAdoptions(evaluations, "REJECTED"),
+			"REJECTED":     countAdoptions(evaluations, "REJECTED"),
 		},
-		"precedence": []string{StateRefuted, StateUnknown, StateClosed},
-		"provenance": provenance,
-		"artifacts": artifactNames,
+		"precedence":       []string{StateRefuted, StateUnknown, StateClosed},
+		"provenance":       provenance,
+		"artifacts":        artifactNames,
 		"artifact_digests": artifactDigests,
-		"authority": options.Authority,
+		"authority":        options.Authority,
 		"inventory": map[string]any{
 			"root_readme_excluded": true,
-			"directories": options.Metrics.Directories,
-			"files": options.Metrics.Files,
-			"physical_lines": options.Metrics.PhysicalLines,
-			"go_files": options.Metrics.GoFiles,
-			"go_lines": options.Metrics.GoLines,
-			"gooo_files": options.Metrics.GoooFiles,
-			"gooo_lines": options.Metrics.GoooLines,
+			"directories":          options.Metrics.Directories,
+			"files":                options.Metrics.Files,
+			"physical_lines":       options.Metrics.PhysicalLines,
+			"go_files":             options.Metrics.GoFiles,
+			"go_lines":             options.Metrics.GoLines,
+			"gooo_files":           options.Metrics.GoooFiles,
+			"gooo_lines":           options.Metrics.GoooLines,
 		},
 		"core_adoption": map[string]any{
-			"performed": false,
+			"performed":          false,
 			"decision_authority": "HUMAN_REVIEW_ONLY",
 		},
 		"semantic_close_rule": "ADOPTABLE requires exact claimed outcome CLOSED and every fixed guardrail CLOSED",
-		"unknown_rule": "missing comparable observations produce UNKNOWN with the six-field frontier tuple",
+		"unknown_rule":        "missing comparable observations produce UNKNOWN with the six-field frontier tuple",
 	}
 	return writeJSON(filepath.Join(options.ArtifactDir, "experiment-manifest.json"), manifest)
 }
@@ -519,9 +519,9 @@ func evaluateCase(scenario Scenario, ir SemanticIR, patch CandidatePatch) (caseE
 		return caseEvaluation{}, fmt.Errorf("case %s expected %s/%s but derived %s/%s", scenario.CaseID, scenario.ExpectedState, scenario.ExpectedAdoption, state, decisionName)
 	}
 	return caseEvaluation{
-		Scenario: scenario,
-		Before: ObservationRecord{CaseID: scenario.CaseID, Side: "BEFORE", Observation: scenario.Before, ObservationDigest: beforeDigest},
-		After: ObservationRecord{CaseID: scenario.CaseID, Side: "AFTER", Observation: scenario.After, ObservationDigest: afterDigest},
+		Scenario:  scenario,
+		Before:    ObservationRecord{CaseID: scenario.CaseID, Side: "BEFORE", Observation: scenario.Before, ObservationDigest: beforeDigest},
+		After:     ObservationRecord{CaseID: scenario.CaseID, Side: "AFTER", Observation: scenario.After, ObservationDigest: afterDigest},
 		Guardrail: guardrail, Claim: claimRecord, Adoption: adoption,
 		Transformation: CandidateTransformation{
 			CaseID: scenario.CaseID, CandidateID: patch.CandidateID, PatchDigest: patch.PatchDigest,

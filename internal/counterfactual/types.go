@@ -30,10 +30,10 @@ type Activity struct {
 }
 
 type ChangeClaim struct {
-	ID            string `json:"id"`
+	ID             string `json:"id"`
 	ExpectedBefore string `json:"expected_before"`
 	ExpectedAfter  string `json:"expected_after"`
-	Exact         bool   `json:"exact"`
+	Exact          bool   `json:"exact"`
 }
 
 type CandidateDecl struct {
@@ -44,23 +44,23 @@ type CandidateDecl struct {
 }
 
 type SourceDecl struct {
-	Schema        string       `json:"schema"`
-	Version       string       `json:"version"`
-	ExperimentID  string       `json:"experiment_id"`
-	BaselineID    string       `json:"baseline_id"`
-	ClaimID       string       `json:"claim_id"`
-	CandidateID   string       `json:"candidate_id"`
-	DenominatorID string       `json:"denominator_id"`
-	CellCount     int          `json:"cell_count"`
-	CaseCount     int          `json:"case_count"`
-	Authority     Authority    `json:"authority"`
-	Precedence    []string     `json:"precedence"`
-	UnknownFields []string     `json:"unknown_fields"`
-	Claim         ChangeClaim  `json:"claim"`
+	Schema        string        `json:"schema"`
+	Version       string        `json:"version"`
+	ExperimentID  string        `json:"experiment_id"`
+	BaselineID    string        `json:"baseline_id"`
+	ClaimID       string        `json:"claim_id"`
+	CandidateID   string        `json:"candidate_id"`
+	DenominatorID string        `json:"denominator_id"`
+	CellCount     int           `json:"cell_count"`
+	CaseCount     int           `json:"case_count"`
+	Authority     Authority     `json:"authority"`
+	Precedence    []string      `json:"precedence"`
+	UnknownFields []string      `json:"unknown_fields"`
+	Claim         ChangeClaim   `json:"claim"`
 	Candidate     CandidateDecl `json:"candidate"`
-	Guardrails    []string     `json:"guardrails"`
-	Activities    []Activity   `json:"activities"`
-	SourceDigest  string       `json:"source_digest"`
+	Guardrails    []string      `json:"guardrails"`
+	Activities    []Activity    `json:"activities"`
+	SourceDigest  string        `json:"source_digest"`
 }
 
 type Contract struct {
@@ -97,20 +97,20 @@ type SemanticIR struct {
 }
 
 type BaselineFixture struct {
-	Schema         string `json:"schema"`
-	BaselineID     string `json:"baseline_id"`
-	SourceFile     string `json:"source_file"`
-	SourceDigest   string `json:"source_digest"`
-	Revision       string `json:"revision"`
-	Immutable      bool   `json:"immutable"`
-	FixtureDigest  string `json:"fixture_digest"`
+	Schema        string `json:"schema"`
+	BaselineID    string `json:"baseline_id"`
+	SourceFile    string `json:"source_file"`
+	SourceDigest  string `json:"source_digest"`
+	Revision      string `json:"revision"`
+	Immutable     bool   `json:"immutable"`
+	FixtureDigest string `json:"fixture_digest"`
 }
 
 type BuildObservation struct {
-	Status       string `json:"status"`
-	ExitCode     int    `json:"exit_code"`
-	DurationMS   int    `json:"duration_ms"`
-	ArtifactBytes int   `json:"artifact_bytes"`
+	Status        string `json:"status"`
+	ExitCode      int    `json:"exit_code"`
+	DurationMS    int    `json:"duration_ms"`
+	ArtifactBytes int    `json:"artifact_bytes"`
 }
 
 type TestObservation struct {
@@ -139,23 +139,23 @@ type Observation struct {
 }
 
 type GuardrailObservation struct {
-	ID           string `json:"id"`
-	State        string `json:"state"`
-	Observed     int    `json:"observed"`
-	Expected     int    `json:"expected"`
-	Evidence     string `json:"evidence"`
+	ID       string `json:"id"`
+	State    string `json:"state"`
+	Observed int    `json:"observed"`
+	Expected int    `json:"expected"`
+	Evidence string `json:"evidence"`
 }
 
 type Scenario struct {
-	CaseID             string                `json:"case_id"`
-	Kind               string                `json:"kind"`
-	CandidateID        string                `json:"candidate_id"`
-	ClaimID            string                `json:"claim_id"`
-	Before             Observation          `json:"before"`
-	After              Observation          `json:"after"`
-	Guardrails         []GuardrailObservation `json:"guardrails"`
-	ExpectedState      string                `json:"expected_state"`
-	ExpectedAdoption   string                `json:"expected_adoption"`
+	CaseID           string                 `json:"case_id"`
+	Kind             string                 `json:"kind"`
+	CandidateID      string                 `json:"candidate_id"`
+	ClaimID          string                 `json:"claim_id"`
+	Before           Observation            `json:"before"`
+	After            Observation            `json:"after"`
+	Guardrails       []GuardrailObservation `json:"guardrails"`
+	ExpectedState    string                 `json:"expected_state"`
+	ExpectedAdoption string                 `json:"expected_adoption"`
 }
 
 type ScenarioCorpus struct {
@@ -165,50 +165,50 @@ type ScenarioCorpus struct {
 }
 
 type CandidatePatch struct {
-	Schema             string `json:"schema"`
-	CandidateID        string `json:"candidate_id"`
-	ClaimID            string `json:"claim_id"`
-	BaselineID         string `json:"baseline_id"`
+	Schema               string `json:"schema"`
+	CandidateID          string `json:"candidate_id"`
+	ClaimID              string `json:"claim_id"`
+	BaselineID           string `json:"baseline_id"`
 	BaselineSourceDigest string `json:"baseline_source_digest"`
-	Operation          string `json:"operation"`
-	Target             string `json:"target"`
-	PatchFormat        string `json:"patch_format"`
-	PatchText          string `json:"patch_text"`
-	ExecutionBoundary  string `json:"execution_boundary"`
-	PatchDigest        string `json:"patch_digest,omitempty"`
+	Operation            string `json:"operation"`
+	Target               string `json:"target"`
+	PatchFormat          string `json:"patch_format"`
+	PatchText            string `json:"patch_text"`
+	ExecutionBoundary    string `json:"execution_boundary"`
+	PatchDigest          string `json:"patch_digest,omitempty"`
 }
 
 type CandidateTransformation struct {
-	CaseID       string         `json:"case_id"`
-	CandidateID  string         `json:"candidate_id"`
-	PatchDigest  string         `json:"patch_digest"`
-	BeforeSubject string        `json:"before_subject"`
-	AfterSubject  string        `json:"after_subject"`
-	Transformation string       `json:"transformation"`
+	CaseID         string `json:"case_id"`
+	CandidateID    string `json:"candidate_id"`
+	PatchDigest    string `json:"patch_digest"`
+	BeforeSubject  string `json:"before_subject"`
+	AfterSubject   string `json:"after_subject"`
+	Transformation string `json:"transformation"`
 }
 
 type ObservationRecord struct {
-	CaseID       string      `json:"case_id"`
-	Side         string      `json:"side"`
-	Observation  Observation `json:"observation"`
-	ObservationDigest string `json:"observation_digest"`
+	CaseID            string      `json:"case_id"`
+	Side              string      `json:"side"`
+	Observation       Observation `json:"observation"`
+	ObservationDigest string      `json:"observation_digest"`
 }
 
 type GuardrailRecord struct {
-	CaseID     string                 `json:"case_id"`
-	Guardrails []GuardrailObservation `json:"guardrails"`
-	AllClosed  bool                   `json:"all_closed"`
+	CaseID       string                 `json:"case_id"`
+	Guardrails   []GuardrailObservation `json:"guardrails"`
+	AllClosed    bool                   `json:"all_closed"`
 	RecordDigest string               `json:"record_digest"`
 }
 
 type Claim struct {
-	State        string   `json:"state"`
-	Stage        string   `json:"stage,omitempty"`
-	Step         string   `json:"step,omitempty"`
-	Reason       string   `json:"reason,omitempty"`
-	UnknownClass string   `json:"unknown_class,omitempty"`
-	NextOperation string  `json:"next_operation,omitempty"`
-	BlockedBy    []string `json:"blocked_by,omitempty"`
+	State         string   `json:"state"`
+	Stage         string   `json:"stage,omitempty"`
+	Step          string   `json:"step,omitempty"`
+	Reason        string   `json:"reason,omitempty"`
+	UnknownClass  string   `json:"unknown_class,omitempty"`
+	NextOperation string   `json:"next_operation,omitempty"`
+	BlockedBy     []string `json:"blocked_by,omitempty"`
 }
 
 func (claim Claim) HasUnknownTuple() bool {
@@ -228,13 +228,13 @@ type ClaimRecord struct {
 }
 
 type AdoptionDecision struct {
-	CaseID          string `json:"case_id"`
-	ClaimState      string `json:"claim_state"`
-	Decision        string `json:"decision"`
-	Rationale       string `json:"rationale"`
-	HumanAuthority  string `json:"human_authority"`
-	AppliedToCore   bool   `json:"applied_to_core"`
-	RecordDigest    string `json:"record_digest"`
+	CaseID         string `json:"case_id"`
+	ClaimState     string `json:"claim_state"`
+	Decision       string `json:"decision"`
+	Rationale      string `json:"rationale"`
+	HumanAuthority string `json:"human_authority"`
+	AppliedToCore  bool   `json:"applied_to_core"`
+	RecordDigest   string `json:"record_digest"`
 }
 
 type Metrics struct {
