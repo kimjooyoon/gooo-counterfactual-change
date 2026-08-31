@@ -332,7 +332,7 @@ func Evaluate(options EvaluateOptions, compiled SemanticIR) error {
 		"candidate_execution_location":           "CALLER_OWNED_EPHEMERAL_CI_COPY",
 		"source_repository_writes":               0,
 		"local_test_executions":                  0,
-		"cross_project_required_gates":            0,
+		"cross_project_required_gates":           0,
 		"candidate_applied_to_source_repository": false,
 		"case_count":                             CaseCount,
 		"provenance":                             provenance,

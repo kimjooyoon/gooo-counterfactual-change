@@ -75,23 +75,23 @@ type Contract struct {
 }
 
 type SemanticIR struct {
-	Schema        string        `json:"schema"`
-	Version       string        `json:"version"`
-	ExperimentID  string        `json:"experiment_id"`
-	BaselineID    string        `json:"baseline_id"`
-	ClaimID       string        `json:"claim_id"`
-	CandidateID   string        `json:"candidate_id"`
-	DenominatorID string        `json:"denominator_id"`
-	CellCount     int           `json:"cell_count"`
-	CaseCount     int           `json:"case_count"`
-	Authority     Authority     `json:"authority"`
-	Precedence    []string      `json:"precedence"`
-	UnknownFields []string      `json:"unknown_fields"`
-	Claim         ChangeClaim   `json:"claim"`
-	Candidate     CandidateDecl `json:"candidate"`
-	Guardrails    []string      `json:"guardrails"`
-	Activities    []Activity    `json:"activities"`
-	SourceDigest  string        `json:"source_digest"`
+	Schema         string        `json:"schema"`
+	Version        string        `json:"version"`
+	ExperimentID   string        `json:"experiment_id"`
+	BaselineID     string        `json:"baseline_id"`
+	ClaimID        string        `json:"claim_id"`
+	CandidateID    string        `json:"candidate_id"`
+	DenominatorID  string        `json:"denominator_id"`
+	CellCount      int           `json:"cell_count"`
+	CaseCount      int           `json:"case_count"`
+	Authority      Authority     `json:"authority"`
+	Precedence     []string      `json:"precedence"`
+	UnknownFields  []string      `json:"unknown_fields"`
+	Claim          ChangeClaim   `json:"claim"`
+	Candidate      CandidateDecl `json:"candidate"`
+	Guardrails     []string      `json:"guardrails"`
+	Activities     []Activity    `json:"activities"`
+	SourceDigest   string        `json:"source_digest"`
 	ContractDigest string       `json:"contract_digest"`
 	IRDigest      string        `json:"ir_digest,omitempty"`
 }
@@ -198,7 +198,7 @@ type GuardrailRecord struct {
 	CaseID       string                 `json:"case_id"`
 	Guardrails   []GuardrailObservation `json:"guardrails"`
 	AllClosed    bool                   `json:"all_closed"`
-	RecordDigest string               `json:"record_digest"`
+	RecordDigest string                 `json:"record_digest"`
 }
 
 type Claim struct {
@@ -217,14 +217,14 @@ func (claim Claim) HasUnknownTuple() bool {
 }
 
 type ClaimRecord struct {
-	CaseID           string `json:"case_id"`
-	Kind             string `json:"kind"`
-	Claim            Claim  `json:"claim"`
-	BeforeDigest     string `json:"before_digest"`
-	AfterDigest      string `json:"after_digest"`
-	GuardrailDigest  string `json:"guardrail_digest"`
-	ExactComparison  string `json:"exact_comparison"`
-	RecordDigest     string `json:"record_digest"`
+	CaseID          string `json:"case_id"`
+	Kind            string `json:"kind"`
+	Claim           Claim  `json:"claim"`
+	BeforeDigest    string `json:"before_digest"`
+	AfterDigest     string `json:"after_digest"`
+	GuardrailDigest string `json:"guardrail_digest"`
+	ExactComparison string `json:"exact_comparison"`
+	RecordDigest    string `json:"record_digest"`
 }
 
 type AdoptionDecision struct {
