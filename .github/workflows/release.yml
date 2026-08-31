@@ -3,6 +3,16 @@ name: Immutable release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing annotated release tag to validate and publish
+        required: true
+        type: string
+      release_commit:
+        description: Commit peeled from release_tag
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -10,32 +20,38 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
+      RELEASE_COMMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.release_commit || github.sha }}
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           fetch-tags: true
+          ref: ${{ env.RELEASE_COMMIT }}
       - name: Verify annotated tag points to the pushed commit
         run: |
           set -euo pipefail
-          tag_ref="refs/tags/$GITHUB_REF_NAME"
-          git fetch origin "$tag_ref:$tag_ref"
+          tag_ref="refs/tags/$RELEASE_TAG"
+          if ! git show-ref --verify --quiet "$tag_ref"; then
+            git fetch origin "$tag_ref:$tag_ref"
+          fi
           tag_object=$(git rev-parse "$tag_ref")
           test "$(git cat-file -t "$tag_object")" = tag
-          test "$(git rev-parse "$tag_object^{commit}")" = "$GITHUB_SHA"
+          test "$(git rev-parse "$tag_object^{commit}")" = "$RELEASE_COMMIT"
       - name: Build immutable source archive and checksums
         shell: bash
         run: |
           set -euo pipefail
-          version="${GITHUB_REF_NAME#v}"
+          version="${RELEASE_TAG#v}"
           archive="gooo-counterfactual-change-${version}.tar.gz"
-          tag_object=$(git rev-parse "refs/tags/$GITHUB_REF_NAME")
-          git archive --format=tar.gz --prefix="gooo-counterfactual-change-${version}/" -o "$archive" "$GITHUB_SHA"
+          tag_object=$(git rev-parse "refs/tags/$RELEASE_TAG")
+          git archive --format=tar.gz --prefix="gooo-counterfactual-change-${version}/" -o "$archive" "$RELEASE_COMMIT"
           sha256sum "$archive" > SHA256SUMS
-          printf '{"schema":"gooo/counterfactual-change/release-manifest/v1","tag":"%s","tag_object":"%s","commit":"%s","immutable":true}\n' "$GITHUB_REF_NAME" "$tag_object" "$GITHUB_SHA" > release-manifest.json
+          printf '{"schema":"gooo/counterfactual-change/release-manifest/v1","tag":"%s","tag_object":"%s","commit":"%s","immutable":true}\n' "$RELEASE_TAG" "$tag_object" "$RELEASE_COMMIT" > release-manifest.json
           {
             echo "tag_object=$tag_object"
-            echo "commit=$GITHUB_SHA"
+            echo "commit=$RELEASE_COMMIT"
             echo "asset=$archive"
             echo "asset_bytes=$(wc -c < "$archive" | tr -d ' ')"
             echo "asset_sha256=$(sha256sum "$archive" | awk '{print $1}')"
@@ -44,9 +60,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" \
-            "gooo-counterfactual-change-${GITHUB_REF_NAME#v}.tar.gz" \
+          gh release create "$RELEASE_TAG" \
+            "gooo-counterfactual-change-${RELEASE_TAG#v}.tar.gz" \
             SHA256SUMS release-manifest.json \
-            --verify-tag --title "$GITHUB_REF_NAME" \
+            --verify-tag --title "$RELEASE_TAG" \
             --notes "Immutable source release for the counterfactual change protocol." \
             --latest
