@@ -1,0 +1,31 @@
+{
+  "schema": "gooo/counterfactual-change/denominator/v1",
+  "id": "counterfactual-change-v1",
+  "version": "v1",
+  "cell_count": 15,
+  "case_count": 12,
+  "fixed": true,
+  "guardrails": [
+    "baseline_immutable",
+    "candidate_isolated",
+    "authority_zero",
+    "resource_budget"
+  ],
+  "activities": [
+    {"ordinal":1,"id":"BindImmutableBaseline","phase":"BASELINE","input":"source","output":"baseline_binding","edge":"source_to_immutable_baseline"},
+    {"ordinal":2,"id":"DigestBaseline","phase":"BASELINE","input":"baseline_binding","output":"baseline_digest","edge":"baseline_binding_to_digest"},
+    {"ordinal":3,"id":"FreezeBaselineRevision","phase":"BASELINE","input":"baseline_digest","output":"immutable_revision","edge":"digest_to_immutable_revision"},
+    {"ordinal":4,"id":"DeclareChangeClaim","phase":"CLAIM","input":"immutable_revision","output":"explicit_claim","edge":"baseline_to_claim"},
+    {"ordinal":5,"id":"DeclareExactOutcome","phase":"CLAIM","input":"explicit_claim","output":"expected_outcome","edge":"claim_to_exact_outcome"},
+    {"ordinal":6,"id":"DeclareFixedGuardrails","phase":"CLAIM","input":"explicit_claim","output":"guardrail_set","edge":"claim_to_guardrails"},
+    {"ordinal":7,"id":"GenerateCandidateTransformation","phase":"CANDIDATE","input":"explicit_claim","output":"candidate_patch","edge":"claim_to_candidate"},
+    {"ordinal":8,"id":"BindCandidateToBaseline","phase":"CANDIDATE","input":"candidate_patch","output":"candidate_binding","edge":"candidate_to_baseline"},
+    {"ordinal":9,"id":"EmitCandidateArtifact","phase":"CANDIDATE","input":"candidate_binding","output":"caller_owned_artifact","edge":"binding_to_artifact"},
+    {"ordinal":10,"id":"CreateEphemeralCICopy","phase":"EXECUTION","input":"caller_owned_artifact","output":"isolated_copy","edge":"artifact_to_ephemeral_copy"},
+    {"ordinal":11,"id":"ObserveBeforeExecution","phase":"EXECUTION","input":"isolated_copy","output":"before_observation","edge":"copy_to_before_observation"},
+    {"ordinal":12,"id":"ObserveAfterExecution","phase":"EXECUTION","input":"isolated_copy","output":"after_observation","edge":"copy_to_after_observation"},
+    {"ordinal":13,"id":"CompareExactObservations","phase":"EXECUTION","input":"before_observation,after_observation","output":"comparison","edge":"observations_to_comparison"},
+    {"ordinal":14,"id":"ResolveGuardrails","phase":"DECISION","input":"comparison","output":"claim_state","edge":"comparison_to_state"},
+    {"ordinal":15,"id":"RecordHumanAdoptionDecision","phase":"DECISION","input":"claim_state","output":"adoption_decision","edge":"state_to_human_decision"}
+  ]
+}

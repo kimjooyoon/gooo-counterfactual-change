@@ -1,0 +1,138 @@
+{
+  "schema": "gooo/counterfactual-change/cases/v1",
+  "denominator_id": "counterfactual-change-v1",
+  "cases": [
+    {
+      "case_id": "normal-01",
+      "kind": "NORMAL",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"GENERATED_CANDIDATE","outcome":"CLAIMED_SUCCESS","build":{"status":"PASS","exit_code":0,"duration_ms":12,"artifact_bytes":2200},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":13},"resources":{"cpu_time_ms":6,"peak_rss_kib":70,"wall_ms":22}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate ran in ephemeral CI copy"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"candidate resource envelope within fixed budget"}],
+      "expected_state":"CLOSED",
+      "expected_adoption":"ADOPTABLE"
+    },
+    {
+      "case_id": "normal-02",
+      "kind": "NORMAL",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"GENERATED_CANDIDATE","outcome":"CLAIMED_SUCCESS","build":{"status":"PASS","exit_code":0,"duration_ms":12,"artifact_bytes":2200},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":13},"resources":{"cpu_time_ms":6,"peak_rss_kib":70,"wall_ms":22}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate ran in ephemeral CI copy"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"candidate resource envelope within fixed budget"}],
+      "expected_state":"CLOSED",
+      "expected_adoption":"ADOPTABLE"
+    },
+    {
+      "case_id": "normal-03",
+      "kind": "NORMAL",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"GENERATED_CANDIDATE","outcome":"CLAIMED_SUCCESS","build":{"status":"PASS","exit_code":0,"duration_ms":12,"artifact_bytes":2200},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":13},"resources":{"cpu_time_ms":6,"peak_rss_kib":70,"wall_ms":22}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate ran in ephemeral CI copy"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"candidate resource envelope within fixed budget"}],
+      "expected_state":"CLOSED",
+      "expected_adoption":"ADOPTABLE"
+    },
+    {
+      "case_id": "normal-04",
+      "kind": "NORMAL",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"GENERATED_CANDIDATE","outcome":"CLAIMED_SUCCESS","build":{"status":"PASS","exit_code":0,"duration_ms":12,"artifact_bytes":2200},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":13},"resources":{"cpu_time_ms":6,"peak_rss_kib":70,"wall_ms":22}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate ran in ephemeral CI copy"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"candidate resource envelope within fixed budget"}],
+      "expected_state":"CLOSED",
+      "expected_adoption":"ADOPTABLE"
+    },
+    {
+      "case_id": "unknown-01",
+      "kind": "UNKNOWN",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":false,"execution_mode":"EPHEMERAL_CI_COPY","subject":"UNAVAILABLE","outcome":"OBSERVATION_UNAVAILABLE","build":{"status":"MISSING","exit_code":0,"duration_ms":0,"artifact_bytes":0},"tests":{"status":"MISSING","exit_code":0,"executed":0,"passed":0,"failed":0,"duration_ms":0},"resources":{"cpu_time_ms":0,"peak_rss_kib":0,"wall_ms":0}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate copy was allocated"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"no comparable candidate resource envelope"}],
+      "expected_state":"UNKNOWN",
+      "expected_adoption":"HOLD_UNKNOWN"
+    },
+    {
+      "case_id": "unknown-02",
+      "kind": "UNKNOWN",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":false,"execution_mode":"EPHEMERAL_CI_COPY","subject":"UNAVAILABLE","outcome":"OBSERVATION_UNAVAILABLE","build":{"status":"MISSING","exit_code":0,"duration_ms":0,"artifact_bytes":0},"tests":{"status":"MISSING","exit_code":0,"executed":0,"passed":0,"failed":0,"duration_ms":0},"resources":{"cpu_time_ms":0,"peak_rss_kib":0,"wall_ms":0}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate copy was allocated"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"no comparable candidate resource envelope"}],
+      "expected_state":"UNKNOWN",
+      "expected_adoption":"HOLD_UNKNOWN"
+    },
+    {
+      "case_id": "unknown-03",
+      "kind": "UNKNOWN",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":false,"execution_mode":"EPHEMERAL_CI_COPY","subject":"UNAVAILABLE","outcome":"OBSERVATION_UNAVAILABLE","build":{"status":"MISSING","exit_code":0,"duration_ms":0,"artifact_bytes":0},"tests":{"status":"MISSING","exit_code":0,"executed":0,"passed":0,"failed":0,"duration_ms":0},"resources":{"cpu_time_ms":0,"peak_rss_kib":0,"wall_ms":0}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate copy was allocated"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"no comparable candidate resource envelope"}],
+      "expected_state":"UNKNOWN",
+      "expected_adoption":"HOLD_UNKNOWN"
+    },
+    {
+      "case_id": "unknown-04",
+      "kind": "UNKNOWN",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":false,"execution_mode":"EPHEMERAL_CI_COPY","subject":"UNAVAILABLE","outcome":"OBSERVATION_UNAVAILABLE","build":{"status":"MISSING","exit_code":0,"duration_ms":0,"artifact_bytes":0},"tests":{"status":"MISSING","exit_code":0,"executed":0,"passed":0,"failed":0,"duration_ms":0},"resources":{"cpu_time_ms":0,"peak_rss_kib":0,"wall_ms":0}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate copy was allocated"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"no comparable candidate resource envelope"}],
+      "expected_state":"UNKNOWN",
+      "expected_adoption":"HOLD_UNKNOWN"
+    },
+    {
+      "case_id": "refuted-01",
+      "kind": "REFUTED",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"GENERATED_CANDIDATE","outcome":"REGRESSION","build":{"status":"PASS","exit_code":0,"duration_ms":12,"artifact_bytes":2200},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":13},"resources":{"cpu_time_ms":6,"peak_rss_kib":70,"wall_ms":22}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate ran in ephemeral CI copy"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"candidate resource envelope within fixed budget"}],
+      "expected_state":"REFUTED",
+      "expected_adoption":"REJECTED"
+    },
+    {
+      "case_id": "refuted-02",
+      "kind": "REFUTED",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"GENERATED_CANDIDATE","outcome":"CLAIMED_SUCCESS","build":{"status":"PASS","exit_code":0,"duration_ms":12,"artifact_bytes":2200},"tests":{"status":"FAIL","exit_code":1,"executed":3,"passed":2,"failed":1,"duration_ms":13},"resources":{"cpu_time_ms":6,"peak_rss_kib":70,"wall_ms":22}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate ran in ephemeral CI copy"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"candidate resource envelope within fixed budget"}],
+      "expected_state":"REFUTED",
+      "expected_adoption":"REJECTED"
+    },
+    {
+      "case_id": "refuted-03",
+      "kind": "REFUTED",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"GENERATED_CANDIDATE","outcome":"CLAIMED_SUCCESS","build":{"status":"PASS","exit_code":0,"duration_ms":12,"artifact_bytes":2200},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":13},"resources":{"cpu_time_ms":6,"peak_rss_kib":70,"wall_ms":99}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate ran in ephemeral CI copy"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"OPEN","observed":99,"expected":20,"evidence":"candidate exceeded fixed resource budget"}],
+      "expected_state":"REFUTED",
+      "expected_adoption":"REJECTED"
+    },
+    {
+      "case_id": "refuted-04",
+      "kind": "REFUTED",
+      "candidate_id": "candidate-explicit-result",
+      "claim_id": "claim-explicit-result",
+      "before": {"comparable":true,"execution_mode":"EPHEMERAL_CI_COPY","subject":"IMMUTABLE_BASELINE","outcome":"BASELINE_STABLE","build":{"status":"PASS","exit_code":0,"duration_ms":10,"artifact_bytes":2048},"tests":{"status":"PASS","exit_code":0,"executed":3,"passed":3,"failed":0,"duration_ms":12},"resources":{"cpu_time_ms":5,"peak_rss_kib":64,"wall_ms":20}},
+      "after": {"comparable":false,"execution_mode":"EPHEMERAL_CI_COPY","subject":"UNAVAILABLE","outcome":"REGRESSION","build":{"status":"MISSING","exit_code":0,"duration_ms":0,"artifact_bytes":0},"tests":{"status":"MISSING","exit_code":0,"executed":0,"passed":0,"failed":0,"duration_ms":0},"resources":{"cpu_time_ms":0,"peak_rss_kib":0,"wall_ms":0}},
+      "guardrails": [{"id":"baseline_immutable","state":"CLOSED","observed":1,"expected":1,"evidence":"baseline digest unchanged"},{"id":"candidate_isolated","state":"CLOSED","observed":1,"expected":1,"evidence":"candidate copy was allocated"},{"id":"authority_zero","state":"CLOSED","observed":0,"expected":0,"evidence":"no repository or local test authority used"},{"id":"resource_budget","state":"CLOSED","observed":20,"expected":20,"evidence":"no comparable candidate resource envelope"}],
+      "expected_state":"REFUTED",
+      "expected_adoption":"REJECTED"
+    }
+  ]
+}

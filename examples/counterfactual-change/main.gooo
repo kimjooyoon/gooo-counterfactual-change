@@ -1,0 +1,27 @@
+gooo counterfactual_change v1
+experiment id=explicit-result-guard baseline_id=baseline-explicit-result-v1 claim_id=claim-explicit-result candidate_id=candidate-explicit-result
+denominator id=counterfactual-change-v1 cell_count=15 case_count=12
+authority repository_writes=0 local_test_executions=0 cross_project_required_gates=0
+precedence REFUTED>UNKNOWN>CLOSED
+unknown_fields stage,step,reason,unknown_class,next_operation,blocked_by
+change_claim id=claim-explicit-result expected_before=BASELINE_STABLE expected_after=CLAIMED_SUCCESS exact=true
+candidate id=candidate-explicit-result operation=explicit_result_guard target=counterfactual_evaluator patch_format=gooo-candidate-fragment
+guardrail id=baseline_immutable
+guardrail id=candidate_isolated
+guardrail id=authority_zero
+guardrail id=resource_budget
+activity ordinal=1 id=BindImmutableBaseline phase=BASELINE input=source output=baseline_binding edge=source_to_immutable_baseline
+activity ordinal=2 id=DigestBaseline phase=BASELINE input=baseline_binding output=baseline_digest edge=baseline_binding_to_digest
+activity ordinal=3 id=FreezeBaselineRevision phase=BASELINE input=baseline_digest output=immutable_revision edge=digest_to_immutable_revision
+activity ordinal=4 id=DeclareChangeClaim phase=CLAIM input=immutable_revision output=explicit_claim edge=baseline_to_claim
+activity ordinal=5 id=DeclareExactOutcome phase=CLAIM input=explicit_claim output=expected_outcome edge=claim_to_exact_outcome
+activity ordinal=6 id=DeclareFixedGuardrails phase=CLAIM input=explicit_claim output=guardrail_set edge=claim_to_guardrails
+activity ordinal=7 id=GenerateCandidateTransformation phase=CANDIDATE input=explicit_claim output=candidate_patch edge=claim_to_candidate
+activity ordinal=8 id=BindCandidateToBaseline phase=CANDIDATE input=candidate_patch output=candidate_binding edge=candidate_to_baseline
+activity ordinal=9 id=EmitCandidateArtifact phase=CANDIDATE input=candidate_binding output=caller_owned_artifact edge=binding_to_artifact
+activity ordinal=10 id=CreateEphemeralCICopy phase=EXECUTION input=caller_owned_artifact output=isolated_copy edge=artifact_to_ephemeral_copy
+activity ordinal=11 id=ObserveBeforeExecution phase=EXECUTION input=isolated_copy output=before_observation edge=copy_to_before_observation
+activity ordinal=12 id=ObserveAfterExecution phase=EXECUTION input=isolated_copy output=after_observation edge=copy_to_after_observation
+activity ordinal=13 id=CompareExactObservations phase=EXECUTION input=before_observation,after_observation output=comparison edge=observations_to_comparison
+activity ordinal=14 id=ResolveGuardrails phase=DECISION input=comparison output=claim_state edge=comparison_to_state
+activity ordinal=15 id=RecordHumanAdoptionDecision phase=DECISION input=claim_state output=adoption_decision edge=state_to_human_decision

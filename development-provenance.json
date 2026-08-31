@@ -1,0 +1,23 @@
+{
+  "schema": "gooo/counterfactual-change/development-provenance/v1",
+  "repository": "kimjooyoon/gooo-counterfactual-change",
+  "implementation_pr": 1,
+  "direct_main_commit_count": 1,
+  "direct_main_commit_sha": "9c22ca9",
+  "direct_main_paths": ["README.md"],
+  "direct_main_classification": "MINIMAL_BOOTSTRAP_NO_IMPLEMENTATION",
+  "local_go_execution_count": 0,
+  "failed_attempts_preserved": [
+    {"run_id":33379837606,"job_id":99449453045,"head_sha":"8e9a6975eb3d07f1e86c4370ca735625cb534fea","failure":"formatting verifier did not print offending paths"},
+    {"run_id":33379903968,"job_id":99449664198,"head_sha":"ce6aeaef090c94cb6b5cc3d55963548ec06bb1cb","failure":"formatting verifier did not print offending paths"},
+    {"run_id":33379960792,"job_id":99449840904,"head_sha":"6cc73e66cf7ff20c318803bbaefd3a8ea310e865","failure":"formatting verifier exposed canonical diff"},
+    {"run_id":33380139589,"job_id":99450409103,"head_sha":"82faf2a76184d2ec65cd46eea93f28a9d437206a","failure":"formatting verifier exposed remaining alignment"},
+    {"run_id":33380208071,"job_id":99450631093,"head_sha":"5bffdf6455e892066b49a54d9e9d7de117e393eb","failure":"repository-owned negative output check used archive copy"}
+  ],
+  "evaluation_authority": {
+    "repository_writes": 0,
+    "local_test_executions": 0,
+    "cross_project_required_gates": 0
+  },
+  "core_adoption_performed": false
+}

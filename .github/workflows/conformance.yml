@@ -1,0 +1,58 @@
+name: Counterfactual change conformance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    env:
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.SUBJECT_SHA }}
+          fetch-depth: 0
+      - uses: actions/setup-go@v6
+        with:
+          go-version: 1.27.0
+          cache: false
+      - name: Verify Go 1.27
+        run: test "$(go env GOVERSION)" = "go1.27.0"
+      - name: Verify formatting
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=$(gofmt -l $(git ls-files '*.go'))
+          if [ -n "$files" ]; then
+            printf '%s\n' "$files"
+            gofmt -d $files
+            exit 1
+          fi
+      - name: Verify vet
+        run: go vet ./...
+      - name: Verify tests
+        run: go test ./...
+      - name: Build generated evaluator runner
+        run: go build -trimpath -o "$RUNNER_TEMP/gooo-counterfactual-change" ./cmd/gooo-counterfactual-change
+      - name: Run counterfactual protocol in isolated CI copy
+        shell: bash
+        run: bash scripts/conformance.sh "$RUNNER_TEMP/gooo-counterfactual-change" "$(go env GOVERSION)"
+      - name: Upload exact machine and human evidence
+        id: upload-evidence
+        uses: actions/upload-artifact@v5
+        with:
+          name: gooo-counterfactual-change-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/gooo-counterfactual-change-work/first/artifacts
+          if-no-files-found: error
+          include-hidden-files: false
+      - name: Publish artifact receipt
+        run: |
+          echo "artifact_id=${{ steps.upload-evidence.outputs.artifact-id }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "artifact_digest=${{ steps.upload-evidence.outputs.artifact-digest }}" >> "$GITHUB_STEP_SUMMARY"
