@@ -133,13 +133,13 @@ fi
 forbidden="$root/.gooo-counterfactual-change-forbidden-output"
 forbidden_ir="$work/forbidden-ir.json"
 if "$bin" evaluate \
-	--source "$source" \
-	--contract "$contract" \
+	--source "$root/examples/counterfactual-change/main.gooo" \
+	--contract "$root/contracts/counterfactual-denominator-v1.json" \
 	--ir "$forbidden_ir" \
-	--cases "$cases" \
-	--baseline-fixture "$baseline" \
-	--generated-go "$generated" \
-	--evaluator "$evaluator" \
+	--cases "$root/fixtures/scenarios.json" \
+	--baseline-fixture "$root/fixtures/baseline-identity.json" \
+	--generated-go "$root/generated/evaluator.go" \
+	--evaluator "$root/scripts/conformance.sh" \
 	--artifact-dir "$forbidden" \
 	--execution-mode EPHEMERAL_CI_COPY \
 	--subject-sha "$subject_sha" \
