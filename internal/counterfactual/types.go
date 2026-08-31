@@ -92,8 +92,8 @@ type SemanticIR struct {
 	Guardrails     []string      `json:"guardrails"`
 	Activities     []Activity    `json:"activities"`
 	SourceDigest   string        `json:"source_digest"`
-	ContractDigest string       `json:"contract_digest"`
-	IRDigest      string        `json:"ir_digest,omitempty"`
+	ContractDigest string        `json:"contract_digest"`
+	IRDigest       string        `json:"ir_digest,omitempty"`
 }
 
 type BaselineFixture struct {
