@@ -1,0 +1,9 @@
+{
+  "schema": "gooo/counterfactual-change/baseline/v1",
+  "baseline_id": "baseline-explicit-result-v1",
+  "source_file": "examples/counterfactual-change/main.gooo",
+  "source_digest": "sha256:f8721bdbc0cad79d71b2d314d52fa7f0e60566f35c1ec4b758e275045f509d4c",
+  "revision": "baseline-explicit-result-v1",
+  "immutable": true,
+  "fixture_digest": "sha256:dc92d93635222878c1770d78a021e9e1cc80e7fca95d231251d7f5dee9f25435"
+}

@@ -1,0 +1,47 @@
+name: Immutable release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Verify annotated tag points to the pushed commit
+        run: |
+          test "$(git cat-file -t "$GITHUB_REF_NAME^{tag}")" = tag
+          test "$(git rev-parse "$GITHUB_REF_NAME^{}")" = "$GITHUB_SHA"
+      - name: Build immutable source archive and checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          archive="gooo-counterfactual-change-${version}.tar.gz"
+          tag_object=$(git rev-parse "$GITHUB_REF_NAME^{tag}")
+          git archive --format=tar.gz --prefix="gooo-counterfactual-change-${version}/" -o "$archive" "$GITHUB_SHA"
+          sha256sum "$archive" > SHA256SUMS
+          printf '{"schema":"gooo/counterfactual-change/release-manifest/v1","tag":"%s","tag_object":"%s","commit":"%s","immutable":true}\n' "$GITHUB_REF_NAME" "$tag_object" "$GITHUB_SHA" > release-manifest.json
+          {
+            echo "tag_object=$tag_object"
+            echo "commit=$GITHUB_SHA"
+            echo "asset=$archive"
+            echo "asset_bytes=$(wc -c < "$archive" | tr -d ' ')"
+            echo "asset_sha256=$(sha256sum "$archive" | awk '{print $1}')"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Create immutable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "gooo-counterfactual-change-${GITHUB_REF_NAME#v}.tar.gz" \
+            SHA256SUMS release-manifest.json \
+            --verify-tag --title "$GITHUB_REF_NAME" \
+            --notes "Immutable source release for the counterfactual change protocol." \
+            --latest
